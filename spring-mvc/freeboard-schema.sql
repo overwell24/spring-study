@@ -1,0 +1,23 @@
+
+CREATE TABLE freeboard (
+    id NUMBER PRIMARY KEY,
+    title VARCHAR2(255) NOT NULL,
+    content CLOB NOT NULL,
+    writer VARCHAR2(100) NOT NULL
+);
+
+CREATE SEQUENCE freeboard_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+
+CREATE OR REPLACE TRIGGER trg_freeboard_id
+BEFORE INSERT ON freeboard
+FOR EACH ROW
+BEGIN
+    :NEW.id := freeboard_seq.NEXTVAL;
+END;
+/
+
+
